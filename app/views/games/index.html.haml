@@ -1,19 +1,16 @@
 %h1 Games
 .m-div{style:'width: 800px;'}
   #map{style: 'width: 800px; height: 400px;'}
+%ul
+  -@games.each do |game|
+    %li= link_to(game.name, edit_game_url(game.id))
 :javascript
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
     markers = handler.addMarkers([
       {
-        "lat": 0,
-        "lng": 0,
-        "picture": {
-          "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-          "width":  32,
-          "height": 32
-        },
-        "infowindow": "hello!"
+        "lat": 40.7128,
+        "lng": -74.0059
       }
     ]);
     handler.bounds.extendWith(markers);

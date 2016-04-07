@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  root 'games#index'
+  root 'teams#index'
 
-  resources :games, except: :show
+  resources :teams, only: :index do
+    resources :games, except: :show
+  end
 
-  get 'games/coordinates.json', to: 'games#coordinates'
+  get 'teams/:team_id/games/coordinates.json', to: 'games#coordinates'
 end

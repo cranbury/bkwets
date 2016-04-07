@@ -1,19 +1,23 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.all
+    @team  = Team.find(params[:team_id])
+    @games = @team.games
   end
 
   def new
+    @team  = Team.find(params[:team_id])
     @game = Game.new
   end
 
   def create
-    Game.create(game_params)
+    @team  = Team.find(params[:team_id])
+    @team.games.create(game_params)
 
-    redirect_to '/'
+    redirect_to team_games_url(@team)
   end
 
   def edit
+    @team  = Team.find(params[:team_id])
     @game = Game.find(params[:id])
   end
 
@@ -29,7 +33,7 @@ class GamesController < ApplicationController
   end
 
   def coordinates
-    render json: Game.all.map{|game| {"lat" => game.lat, "lng" => game.long}}.to_json
+    render json: Team.find(params[:team_id]).games.map{|game| {"lat" => game.lat, "lng" => game.long}}.to_json
   end
 
   private

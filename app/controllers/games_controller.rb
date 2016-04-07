@@ -28,6 +28,10 @@ class GamesController < ApplicationController
     end
   end
 
+  def coordinates
+    render json: Game.all.map{|game| {"lat" => game.lat, "lng" => game.long}}.to_json
+  end
+
   private
   def game_params
     params.require(:game).permit(:name, :address)

@@ -1,23 +1,35 @@
 class GamesController < ApplicationController
   def index
     @team  = Team.find(params[:team_id])
-    @games = @team.games
   end
 
   def new
-    @team  = Team.find(params[:team_id])
+    @team = Team.find(params[:team_id])
     @game = Game.new
   end
 
+  def show
+    @team = Team.find(params[:team_id])
+    @game = Game.find(params[:id])
+  end
+
   def create
-    @team  = Team.find(params[:team_id])
+    @team = Team.find(params[:team_id])
     @team.games.create(game_params)
 
     redirect_to team_games_url(@team)
   end
 
+  def update
+    @game = Game.find(params[:id])
+    @game.update(game_params)
+    @team = Team.find(params[:team_id])
+
+    render :index
+  end
+
   def edit
-    @team  = Team.find(params[:team_id])
+    @team = Team.find(params[:team_id])
     @game = Game.find(params[:id])
   end
 
@@ -33,7 +45,8 @@ class GamesController < ApplicationController
   end
 
   def coordinates
-    render json: Team.find(params[:team_id]).games.map{|game| {"lat" => game.lat, "lng" => game.long}}.to_json
+    game = Game.find(params[:id])
+    render json: [{"lat" => game.lat, "lng" => game.long}].to_json
   end
 
   private

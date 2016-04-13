@@ -1,21 +1,8 @@
 %h1 Games
 =link_to("Add game", new_team_game_url)
-.m-div{style:'width: 800px;'}
-  #map{style: 'width: 800px; height: 400px;'}
+
 %table
-  -@games.each do |game|
+  -@team.games.each do |game|
     %tr
-      %td= link_to(game.name, edit_team_game_url(@team.id, game.id))
+      %td= link_to(game.name, team_game_url(@team.id, game.id))
       %td= link_to('DEL', team_game_path(@team.id, game), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, :class => 'delete_game')
-:javascript
-  handler = Gmaps.build('Google');
-  function RenderMap(){
-    $.getJSON("games/coordinates.json", function(coordinates){
-      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-        markers = handler.addMarkers(coordinates);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
-      });
-    })
-  }
-  RenderMap();

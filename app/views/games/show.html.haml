@@ -1,0 +1,17 @@
+%h3= @game.name
+=link_to("Edit page", edit_team_game_url(@team, @game))
+.m-div{style:'width: 800px;'}
+  #map{style: 'width: 800px; height: 400px;'}
+:javascript
+  handler = Gmaps.build('Google');
+  function RenderMap(){
+    $.getJSON("#{@game.id}/coordinates.json", function(coordinates){
+      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+        markers = handler.addMarkers(coordinates);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        handler.getMap().setZoom(15);
+      });
+    })
+  }
+  RenderMap();

@@ -4,4 +4,18 @@
   = f.text_field :name
   %label Location (full address)
   = f.text_field :address
+  / %label Time
+  / .container
+  /   .row
+  /     .col-sm-6
+  /       .form-group
+  /         .input-group.date#datetimepicker1
+  /           %input.form-control{type:'text'}
+  /             %span.input-group-addon
+  /               %span.glyphicon.glyphicon-calendar
+
   = f.submit
+:javascript
+  $(function () {
+    $('#datetimepicker1').datetimepicker();
+  });

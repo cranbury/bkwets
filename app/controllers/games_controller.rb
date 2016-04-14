@@ -11,6 +11,7 @@ class GamesController < ApplicationController
   def show
     @team = Team.find(params[:team_id])
     @game = Game.find(params[:id])
+    @rsvp = Rsvp.new
   end
 
   def create

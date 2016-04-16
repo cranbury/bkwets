@@ -1,18 +1,23 @@
-%h3= @game.name
-=link_to("Edit page", edit_team_game_url(@team, @game))
-.m-div{style:'width: 800px;'}
-  #map{style: 'width: 800px; height: 400px;'}
-%table
-  -@game.rsvps.each do |rsvp|
-    %tr
-      %td= rsvp.name
-      %td= rsvp.email
-=form_for(@rsvp, url: team_game_rsvps_url(@team, @game), remote: true) do |f|
-  =f.label :name
-  =f.text_field :name
-  =f.label :email
-  =f.text_field :email
-  =f.submit
+.container-fluid.col-md-12.translucent
+  %h3
+    = @game.name
+    %small= @game.address
+
+
+  =link_to("Edit page", edit_team_game_url(@team, @game))
+  .m-div{style:'width: 800px;'}
+    #map{style: 'width: 800px; height: 400px;'}
+  %table.table
+    -@game.rsvps.each do |rsvp|
+      %tr
+        %td= rsvp.name
+        %td= rsvp.email
+  =form_for(@rsvp, url: team_game_rsvps_url(@team, @game), remote: true) do |f|
+    =f.label :name
+    =f.text_field :name
+    =f.label :email
+    =f.text_field :email
+    =f.submit
 
 :javascript
   handler = Gmaps.build('Google');

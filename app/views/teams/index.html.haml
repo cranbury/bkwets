@@ -1,4 +1,6 @@
-.h2 Teams
-%ul
- - @teams.each do |team|
-  %li= link_to(team.name, team_games_url(team.id))
+.container-fluid.col-md-9.translucent
+  .h3 Teams
+  .col-sm-3.sidenav
+    %ul.nav.nav-pills.nav-stacked
+      - @teams.each do |team|
+        %li= link_to(team.name, team_games_url(team.id))

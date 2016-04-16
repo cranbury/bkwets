@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Water Polo</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+<script>/*!
+ * jQuery UI Touch Punch 0.2.3
+ *
+ * Copyright 2011–2014, Dave Furfero
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ *
+ * Depends:
+ *  jquery.ui.widget.js
+ *  jquery.ui.mouse.js
+ */
+!function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);</script>
+
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+<script>var __slice=Array.prototype.slice;(function(a){var b;return a.fn.sketch=function(){var c,d,e;d=arguments[0],c=2<=arguments.length?__slice.call(arguments,1):[],this.length>1&&a.error("Sketch.js can only be called on one element at a time."),e=this.data("sketch");if(typeof d!="string"||!e)return e?e:(this.data("sketch",new b(this.get(0),d)),this);if(!e[d])return a.error("Sketch.js did not recognize the given command.");if(typeof e[d]=="function")return e[d].apply(e,c);if(c.length===0)return e[d];if(c.length===1)return e[d]=c[0]},b=function(){function b(b,c){this.el=b,this.canvas=a(b),this.context=b.getContext("2d"),this.options=a.extend({toolLinks:!0,defaultTool:"marker",defaultColor:"#000000",defaultSize:5},c),this.painting=!1,this.color=this.options.defaultColor,this.size=this.options.defaultSize,this.tool=this.options.defaultTool,this.actions=[],this.action=[],this.canvas.bind("click mousedown mouseup mousemove mouseleave mouseout touchstart touchmove touchend touchcancel",this.onEvent),this.options.toolLinks&&a("body").delegate('a[href="#'+this.canvas.attr("id")+'"]',"click",function(b){var c,d,e,f,g,h,i;d=a(this),c=a(d.attr("href")),f=c.data("sketch"),i=["color","size","tool"];for(g=0,h=i.length;g<h;g++)e=i[g],d.attr("data-"+e)&&f.set(e,a(this).attr("data-"+e));return a(this).attr("data-download")&&f.download(a(this).attr("data-download")),!1})}return b.prototype.download=function(a){var b;return a||(a="png"),a==="jpg"&&(a="jpeg"),b="image/"+a,window.open(this.el.toDataURL(b))},b.prototype.set=function(a,b){return this[a]=b,this.canvas.trigger("sketch.change"+a,b)},b.prototype.startPainting=function(){return this.painting=!0,this.action={tool:this.tool,color:this.color,size:parseFloat(this.size),events:[]}},b.prototype.stopPainting=function(){return this.action&&this.actions.push(this.action),this.painting=!1,this.action=null,this.redraw()},b.prototype.onEvent=function(b){return b.originalEvent&&b.originalEvent.targetTouches&&(b.pageX=b.originalEvent.targetTouches[0].pageX,b.pageY=b.originalEvent.targetTouches[0].pageY),a.sketch.tools[a(this).data("sketch").tool].onEvent.call(a(this).data("sketch"),b),b.preventDefault(),!1},b.prototype.redraw=function(){var b;this.el.width=this.canvas.width(),this.context=this.el.getContext("2d"),b=this,a.each(this.actions,function(){if(this.tool)return a.sketch.tools[this.tool].draw.call(b,this)});if(this.painting&&this.action)return a.sketch.tools[this.action.tool].draw.call(b,this.action)},b}(),a.sketch={tools:{}},a.sketch.tools.marker={onEvent:function(a){switch(a.type){case"mousedown":case"touchstart":this.startPainting();break;case"mouseup":case"mouseout":case"mouseleave":case"touchend":case"touchcancel":this.stopPainting()}if(this.painting)return this.action.events.push({x:a.pageX-this.canvas.offset().left,y:a.pageY-this.canvas.offset().top,event:a.type}),this.redraw()},draw:function(a){var b,c,d,e,f;this.context.lineJoin="round",this.context.lineCap="round",this.context.beginPath(),this.context.moveTo(a.events[0].x,a.events[0].y),f=a.events;for(d=0,e=f.length;d<e;d++)b=f[d],this.context.lineTo(b.x,b.y),c=b;return this.context.strokeStyle=a.color,this.context.lineWidth=a.size,this.context.stroke()}},a.sketch.tools.eraser={onEvent:function(b){return a.sketch.tools.marker.onEvent.call(this,b)},draw:function(b){var c;return c=this.context.globalCompositeOperation,this.context.globalCompositeOperation="copy",b.color="rgba(0,0,0,0)",a.sketch.tools.marker.draw.call(this,b),this.context.globalCompositeOperation=c}}})(jQuery)
+
+  $(function() {
+      FastClick.attach(document.body);
+  });</script>
+
+  <style>
+  .player {
+    z-index: 2;
+    float: left;
+    width: 50px;
+    height: 50px;
+    background: white;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px/50px;
+    border:solid 5px blue;
+    text-align: center;
+    line-height: 50px;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+  }
+  .player.defense{
+    border:double 5px red;
+  }
+  .ball{
+    float: left;
+    width: 40px;
+    height: 40px;
+    -moz-border-radius: 40px;
+    -webkit-border-radius: 40px;
+    border-radius: 40px/40px;
+    border:solid 3px black;
+    background: yellow;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+  }
+  .goal {
+    position: relative;
+    width: 225px;
+    height: 50px;
+    background: white;
+    border: dotted 2px black;
+    margin:0 auto;
+  }
+
+  .pool{
+    height: 450px;
+    margin: 10px;
+    width: 950px;
+    background: aqua;
+    border: solid 5px black;
+  }
+  #canvas-wrap { position:relative; width:950px; height:450px }
+  #canvas-wrap canvas { position:absolute; top:0; left:0; z-index:0 }
+
+  .formation{
+    display:inline;
+  }
+  </style>
+
+</head>
+<body>
+  <button class="formation" id="3-3" style="height:100px; width:200px">3-3 (regular offense)</button>
+  <button class="formation" id="4-2" style="height:100px; width:200px">4-2 (man-up offense)</button>
+<div id="canvas-wrap">
+<canvas class="pool" height="450" width="950">
+</canvas> 
+  <div id="overlay">
+  <div class="goal"></div>
+  <svg height="20" width="950">
+    <line x1="0" y1="0" x2="950" y2="0" style="stroke: lightgrey;stroke-width:2" />
+  </svg>
+  <svg height="55" width="950">
+    <line x1="0" y1="32" x2="950" y2="32" style="stroke: crimson;stroke-width:3" />
+  </svg>
+  <svg height="80" width="950">
+    <line x1="0" y1="80" x2="950" y2="80" style="stroke: yellow;stroke-width:3" />
+  </svg>
+</div>
+</div>
+  
+  <div class="player" id="o1">O</div>
+  <div class="player" id="o2">O</div>
+  <div class="player" id="o3">O</div>  
+  <div class="player" id="o4">O</div>
+  <div class="player" id="o5">O</div>
+  <div class="player" id="o6">O</div>
+  
+  <div class="player defense" id="d1">X</div> 
+  <div class="player defense" id="d2">X</div> 
+  <div class="player defense" id="d3">X</div> 
+  <div class="player defense" id="d4">X</div> 
+  <div class="player defense" id="d5">X</div> 
+  <div class="player defense" id="d6">X</div>
+  <div class="ball"></div>
+  <div id="home-goalie" class="player" style="border: solid 5px red;">G</div>
+</body>
+<script>
+  $(function() {
+    $( ".player" ).draggable();
+    $( ".ball" ).draggable();
+    $("#home-goalie").css({"left":"-324px", "top":"-418px"}); //-140 +150
+    $(".pool").sketch()
+  });
+
+  $("#3-3").click(function(){
+    $("#o1").css({"left":"85px", "top":"-367px"});
+    $("#o2").css({"left":"44px", "top":"-97px"});
+    $("#o3").css({"left":"313px", "top":"-35px"});
+    $("#o4").css({"left":"618px", "top":"-98px"});
+    $("#o5").css({"left":"558px", "top":"-333px"});
+    $("#o6").css({"left":"141px", "top":"-341px"});
+
+    $("#d1").css({"left":"-243px", "top":"-361px"});
+    $("#d2").css({"left":"-277px", "top":"-124px"});
+    $("#d3").css({"left":"-47px", "top":"-95px"});
+    $("#d4").css({"left":"209px", "top":"-123px"});
+    $("#d5").css({"left":"154px", "top":"-332px"});
+    $("#d6").css({"left":"-179px", "top":"-353px"});
+  });
+  $("#4-2").click(function(){
+    $("#o1").css({"left":"128px", "top":"-278px"});
+    $("#o2").css({"left":"292px", "top":"-358px"});
+    $("#o3").css({"left":"443px", "top":"-359px"});
+    $("#o4").css({"left":"163px", "top":"-154px"});
+    $("#o5").css({"left":"318px", "top":"-154px"});
+    $("#o6").css({"left":"492px", "top":"-270px"});
+
+    $("#d1").css({"left":"-75px", "top":"-363px"});
+    $("#d2").css({"left":"32px", "top":"-355px"});
+    $("#d3").css({"left":"75px", "top":"-273px"});
+    $("#d4").css({"left":"-193px", "top":"-288px"});
+    $("#d5").css({"left":"19px", "top":"-355px"});
+    $("#d6").css({"left":"264px", "top":"-449px"});
+
+  });
+
+</script>

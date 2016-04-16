@@ -11,7 +11,27 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <h1><%=link_to("Go BK Wets!!", "/")%></h1>
-<%= yield %>
+  
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav translucent">
+        <h2><%=link_to("Go BK Wets!!", "/")%></h2>
+        <ul class="nav nav-pills nav-stacked">
+          <li id="welcome" class="active side-menu"><a href="/">Welcome</a></li>
+          <li id="teams" class="side-menu"><a href="/teams">Teams</a></li>
+<!--           <li><a href="/whiteboard">Whiteboard</a></li> -->
+          <li id="practice" class="side-menu"><a href="/practice">Practice Info</a></li>
+          <li id="contact" class="side-menu"><a href="/contact">Contact</a></li>
+        </ul><br>
+      </div>
 
+      <div class="col-sm-9">
+        <%= yield %>
+      </div>
+      <script>
+        $(".side-menu").removeClass("active");
+        $("#<%= @page || 'teams' %>").addClass("active");
+      </script>
+    </div>
+  </div>
 </body>

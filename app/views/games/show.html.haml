@@ -12,6 +12,7 @@
       %tr
         %td= rsvp.name
         %td= rsvp.email
+        %td= rsvp.phone_number
   =form_for(@rsvp, url: team_game_rsvps_url(@team, @game), remote: true) do |f|
     =f.label :name
     =f.text_field :name
@@ -34,3 +35,7 @@
     })
   }
   RenderMap();
+
+  $( "#new_rsvp" ).submit(function( event ) {
+    location.reload();
+  });

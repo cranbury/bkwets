@@ -2,7 +2,7 @@
   %h3
     = @game.name
     %small= @game.address
-
+    %small= @game.datetime
 
   =link_to("Edit page", edit_team_game_url(@team, @game))
   .m-div{style:'width: 800px;'}
@@ -17,6 +17,8 @@
     =f.text_field :name
     =f.label :email
     =f.text_field :email
+    =f.label :phone_number
+    =f.text_field :phone_number
     =f.submit
 
 :javascript

@@ -13,6 +13,7 @@
         %td= rsvp.name
         %td= rsvp.email
         %td= rsvp.phone_number
+        %td= link_to('DEL', team_game_rsvp_path(@team.id, @game, rsvp), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, :class => 'delete_rsvp')
   =form_for(@rsvp, url: team_game_rsvps_url(@team, @game), remote: true) do |f|
     =f.label :name
     =f.text_field :name

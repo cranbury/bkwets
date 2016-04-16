@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :teams, only: :index do
     resources :games do
-      resources :rsvps, only: :create
+      resources :rsvps, only: [:create, :destroy]
     end
   end
 

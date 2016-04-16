@@ -9,6 +9,17 @@ class RsvpsController < ApplicationController
     end
   end
 
+  def destroy
+    @rsvp = Rsvp.find(params[:id])
+    @rsvp.destroy
+
+    respond_to do |format|
+      format.html { redirect_to games_url }
+      format.json { head :no_content }
+      format.js   { render :layout => false }
+    end
+  end
+
   private
   def rsvp_params
     params.require(:rsvp).permit(:name, :email, :phone_number)

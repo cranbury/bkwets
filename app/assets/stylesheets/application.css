@@ -15,7 +15,8 @@
  */
 
 body {
-  background-image: url("girls_bench.jpg")
+  background-image: url("girls_bench.jpg");
+  background-repeat: no-repeat;
 }
 
 .translucent {
